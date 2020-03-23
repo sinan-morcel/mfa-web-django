@@ -28,6 +28,7 @@ class AccepttoMFABackend(BaseBackend):
       except User.DoesNotExist:
         # create a new user
         user = User(username=username)
+        user.channel = channel  # pass the channel to the view's scope
         user.is_staff = False
         user.is_superuser = False
         user.save()
