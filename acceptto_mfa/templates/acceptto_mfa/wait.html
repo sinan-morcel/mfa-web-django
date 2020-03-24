@@ -17,7 +17,7 @@
     $(function() {
         var faye = new Faye.Client("https://faye.acceptto.com/faye");
         faye.subscribe("/messages/{{ channel }}", function (data) {
-            window.location.replace("{% url 'acceptto_mfa:auth_decision' username channel %}");
+            window.location.replace("{% url 'acceptto_mfa:auth_decision' side username channel %}");
         });
     });
     </script>

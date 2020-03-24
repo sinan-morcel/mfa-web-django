@@ -1,3 +1,11 @@
+{% extends 'admin/login.html' %}
+
+
+{% block branding %}
+  <h1 id="site-name">Login {{ side }}</h1>
+{% endblock branding %}
+
+{% block content %}
 <html>
   <body>
     {% if messages %}
@@ -12,13 +20,19 @@
     {% endif %}
     <form action="{% url 'acceptto_mfa:wait' %}" method="post">
       {% csrf_token %}
-      <label for="username">Email:</label><br>
-      <input type="text" id="username" name="username" value="A@email.com"><br>
-      <label for="password">Password:</label><br>
-      <input type="password" id="password" name="password"><br>
-      <input type="submit" value="login">
+       <div class="form-row">
+       <label class="required" for="id_username">Username:</label> <input type="text" name="username" autofocus autocapitalize="none" autocomplete="username" maxlength="150" required id="id_username">
+       </div>
+       <div class="form-row">
+       <label class="required" for="id_password">Password:</label> <input type="password" name="password" autocomplete="current-password" required id="id_password">
+       <input type="hidden" name="side" value="{{ side }}">
+       </div>
+        <div class="submit-row">
+          <label>&nbsp;</label><input type="submit" value="Log in">
+        </div>
     </form>
     {% block endscripts %}
     {% endblock endscripts %}
   </body>
 </html>
+{% endblock content %}
