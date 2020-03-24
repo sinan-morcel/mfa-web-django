@@ -48,7 +48,7 @@ def wait_view(request):
         "uid": AccepttoMfaConfig.mfa_app_uid,
         "secret": AccepttoMfaConfig.mfa_app_secret,
         "email": user.accepttocredentials.mfa_email,
-        "message": "Would you like to login into Acceptto MFA enalbed Django Sample App?",
+        "message": "Login to the Django MFA Sample App?",
       }
       response = requests.post(AccepttoMfaConfig.mfa_site + "/api/v9/authenticate_with_options", data=payload)
       if response.status_code == 200:  # success
