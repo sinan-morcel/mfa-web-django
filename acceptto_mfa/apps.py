@@ -14,6 +14,3 @@ class AccepttoMfaConfig(AppConfig):
     mfa_app_uid = obj["uid"]
     mfa_app_secret = obj["secret"]
     mfa_site = "https://mfa.acceptto.com"
-
-# override the authentication backend when this app is installed
-# settings.AUTHENTICATION_BACKENDS = ['acceptto_mfa.backends.AccepttoMFABackend']

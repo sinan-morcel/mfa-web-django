@@ -3,18 +3,12 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
-from django.conf import settings
 import requests  # for web API requests
 import logging as log
 from django.contrib.auth.models import User
 from acceptto_mfa.apps import AccepttoMfaConfig
 from django.contrib.auth.decorators import login_required
-
 from django.contrib import messages
-
-from django.views import generic
-from .forms import LoginForm
-from django.contrib.auth.forms import AuthenticationForm
 
 # Create your views here.
 def index_login_view(request):
