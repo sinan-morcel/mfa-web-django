@@ -1,0 +1,22 @@
+<html>
+  <body>
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+            {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Error: {% endif %}
+            {{ message }}
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <form action="{% url 'acceptto_mfa:wait' %}" method="post">
+      {% csrf_token %}
+      <label for="email">Email:</label><br>
+      <input type="text" id="email" name="email" value="A@email.com"><br>
+      <input type="submit" value="login">
+    </form>
+    {% block endscripts %}
+    {% endblock endscripts %}
+  </body>
+</html>

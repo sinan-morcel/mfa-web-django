@@ -1,0 +1,25 @@
+<html>
+  <body>
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+            {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Error: {% endif %}
+            {{ message }}
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <p>Waiting for your confirmation... Check your phone!</p>
+    <script src="https://faye.acceptto.com/faye/faye.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        var faye = new Faye.Client("https://faye.acceptto.com/faye");
+        faye.subscribe("/messages/{{ channel }}", function (data) {
+            window.location.replace("{% url 'acceptto_mfa:auth_decision' username channel %}");
+        });
+    });
+    </script>
+  </body>
+</html>

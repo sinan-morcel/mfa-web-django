@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'acceptto_mfa.apps.AccepttoMfaConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -119,7 +120,15 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+# fetch credentials
+f = open(BASE_DIR + '/../credentials.txt', "r")
+# use readlines to read all lines in the file
+# The variable "lines" is a list containing all lines in the file
+lines = f.readlines()
+# close the file after reading the lines.
+f.close()
 # Acceptto MFA Integration
-MFA_APP_UID = 99999999999999999999999
-MFA_APP_SECRET = 99999999999999999999999
+MFA_APP_UID = lines[0].strip()
+MFA_APP_SECRET = lines[1].strip()
 MFA_SITE = "https://mfa.acceptto.com"
+AUTHENTICATION_BACKENDS = ['acceptto_mfa.backends.AccepttoMFABackend']
