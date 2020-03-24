@@ -12,8 +12,10 @@
     {% endif %}
     <form action="{% url 'acceptto_mfa:wait' %}" method="post">
       {% csrf_token %}
-      <label for="email">Email:</label><br>
-      <input type="text" id="email" name="email" value="A@email.com"><br>
+      <label for="username">Email:</label><br>
+      <input type="text" id="username" name="username" value="A@email.com"><br>
+      <label for="password">Password:</label><br>
+      <input type="password" id="password" name="password"><br>
       <input type="submit" value="login">
     </form>
     {% block endscripts %}

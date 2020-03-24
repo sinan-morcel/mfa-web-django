@@ -15,8 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+import acceptto_mfa
 
 urlpatterns = [
     path('acceptto_mfa/', include('acceptto_mfa.urls')),
+    # path('admin/login/', acceptto_mfa.views.index_login_view),
     path('admin/', admin.site.urls),
 ]

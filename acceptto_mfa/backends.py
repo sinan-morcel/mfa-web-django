@@ -26,7 +26,7 @@ class AccepttoMFABackend(BaseBackend):
         try:
           user = User.objects.get(username=username)
         except User.DoesNotExist:
-          # create a new user
+          # create a new user (we assume they're not staff or superusers)
           user = User(username=username)
           user.is_staff = False
           user.is_superuser = False

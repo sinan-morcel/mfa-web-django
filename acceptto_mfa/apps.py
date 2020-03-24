@@ -14,4 +14,4 @@ class AccepttoMfaConfig(AppConfig):
     mfa_site = "https://mfa.acceptto.com"
 
 # override the authentication backend when this app is installed
-settings.AUTHENTICATION_BACKENDS = ['acceptto_mfa.backends.AccepttoMFABackend']
+# settings.AUTHENTICATION_BACKENDS = ['acceptto_mfa.backends.AccepttoMFABackend']
