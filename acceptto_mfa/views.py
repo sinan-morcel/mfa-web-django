@@ -7,7 +7,6 @@ from django.conf import settings
 import requests  # for web API requests
 import logging as log
 from django.contrib.auth.models import User
-from acceptto_mfa.backends import AccepttoMFABackend
 from acceptto_mfa.apps import AccepttoMfaConfig
 from django.contrib.auth.decorators import login_required
 
