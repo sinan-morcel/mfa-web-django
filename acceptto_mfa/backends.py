@@ -3,6 +3,7 @@ from django.contrib.auth.backends import BaseBackend
 from django.contrib.auth.models import User
 import requests
 import logging as log
+from acceptto_mfa.apps import AccepttoMfaConfig
 
 class AccepttoMFABackend(BaseBackend):
   """
@@ -11,15 +12,14 @@ class AccepttoMFABackend(BaseBackend):
   This authentication backend simply makes sure the user is a valid Acceptto user registered in the app. This backend can be extended to include password authentication or other forms of authentication which can compelement the MFA service.
   """
   def authenticate(self, request, username=None):
-    app_uid = settings.MFA_APP_UID
-    app_secret = settings.MFA_APP_SECRET
-    mfa_site = settings.MFA_SITE
+    app_uid = AccepttoMfaConfig.mfa_app_uid
+    app_secret = AccepttoMfaConfig.mfa_app_secret
     payload = {
       "uid": app_uid,
       "secret": app_secret,
       "email": username,
     }
-    response = requests.post(mfa_site + "/api/v9/is_user_valid", data=payload)
+    response = requests.post(AccepttoMfaConfig.mfa_site + "/api/v9/is_user_valid", data=payload)
     if (response.status_code == 200):  # success
       if (response.json()["valid"] == True):
         # create a new user in Django, if the user is not there already

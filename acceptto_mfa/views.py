@@ -8,6 +8,7 @@ import requests  # for web API requests
 import logging as log
 from django.contrib.auth.models import User
 from acceptto_mfa.backends import AccepttoMFABackend
+from acceptto_mfa.apps import AccepttoMfaConfig
 
 from django.contrib import messages
 
@@ -23,12 +24,12 @@ def wait_view(request):
   if user is not None: # the user is valid
     # don't login the user just yet, perform MFA
     payload = {
-      "uid": settings.MFA_APP_UID,
-      "secret": settings.MFA_APP_SECRET,
+      "uid": AccepttoMfaConfig.mfa_app_uid,
+      "secret": AccepttoMfaConfig.mfa_app_secret,
       "email": username,
       "message": "Would you like to login into Acceptto MFA enalbed Django Sample App?",
     }
-    response = requests.post(settings.MFA_SITE + "/api/v9/authenticate_with_options", data=payload)
+    response = requests.post(AccepttoMfaConfig.mfa_site + "/api/v9/authenticate_with_options", data=payload)
     channel = response.json()["channel"]
     return render(request, 'acceptto_mfa/wait.html', {"channel": channel, "username": username})
   else:
@@ -38,12 +39,12 @@ def wait_view(request):
 
 def auth_decision_view(request, username, channel):
   payload = {
-    "uid": settings.MFA_APP_UID,
-    "secret": settings.MFA_APP_SECRET,
+    "uid": AccepttoMfaConfig.mfa_app_uid,
+    "secret": AccepttoMfaConfig.mfa_app_secret,
     "email": username,
     "channel": channel,
   }
-  response = requests.post(settings.MFA_SITE + "/api/v9/check", data=payload)
+  response = requests.post(AccepttoMfaConfig.mfa_site + "/api/v9/check", data=payload)
   if (response.status_code == 200):  # success
     if (response.json()["status"] == "approved"):
       user = get_object_or_404(User, username=username)
