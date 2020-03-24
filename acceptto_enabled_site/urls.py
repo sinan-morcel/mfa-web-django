@@ -18,7 +18,7 @@ from django.urls import path, include
 import acceptto_mfa
 
 urlpatterns = [
-    path('', include('acceptto_mfa.urls')),
+    path('public/', include('acceptto_mfa.urls')),
     path('admin/login/', acceptto_mfa.views.admin_login_view),
     path('admin/', admin.site.urls),
 ]
